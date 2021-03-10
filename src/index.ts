@@ -745,10 +745,13 @@ function indexSignaturesCondition(
       )
       .filter(v => v !== null) as string[])
   )
-  return `Object.entries(${varName})
+  const staticKeysFilter = properties.length
+    ? `
     .filter(([key]) => ![${properties
       .map(({ name }) => `'${name}'`)
-      .join(',')}].includes(key))
+      .join(',')}].includes(key))`
+    : ''
+  return `Object.entries(${varName})${staticKeysFilter}
     .every(([key,value]) => ${conditions})`
 }
 
