@@ -361,6 +361,23 @@ function objectCondition(
           options
         )
       )
+      const typeArguments = type.getAliasTypeArguments()
+      if (type.getAliasSymbol()?.getName() === 'Record' && typeArguments.length === 2) {
+        conditions.push(
+          indexSignaturesCondition(
+              varName,
+              [{ keyType: typeArguments[0], type: typeArguments[1] }],
+              propertySignatures,
+              addDependency,
+              project,
+              path,
+              arrayDepth,
+              records,
+              outFile,
+              options
+          )
+        )
+      }
     } catch (error) {
       if (error instanceof TypeError) {
         // see https://github.com/dsherret/ts-simple-ast/issues/397

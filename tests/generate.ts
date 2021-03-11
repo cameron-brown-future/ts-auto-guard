@@ -1002,3 +1002,30 @@ testProcessProject(
       `
   }
 )
+
+testProcessProject(
+  'generates type guards for Record types',
+  {
+    'test.ts': `
+      /** @see {isTestType} ts-auto-guard:type-guard */
+      export type = Record<string, "dynamic" | "string">
+      `
+  },
+  {
+    'test.guard.ts': `
+      import { TestType } from "./test";
+
+      export function isTestType(obj: any, _argumentName?: string): obj is TestType {
+          return (
+              (obj !== null &&
+                  typeof obj === "object" ||
+                  typeof obj === "function") &&
+              Object.entries(obj)
+                  .every(([key, value]) => ((value === "string" ||
+                      value === "dynamic") &&
+                      typeof key === "string"))
+          )
+      }
+      `
+  }
+)
