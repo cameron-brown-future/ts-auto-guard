@@ -1008,7 +1008,7 @@ testProcessProject(
   {
     'test.ts': `
       /** @see {isTestType} ts-auto-guard:type-guard */
-      export type = Record<string, "dynamic" | "string">
+      export type TestType = Record<string, "dynamic" | "string">
       `
   },
   {
