@@ -362,19 +362,22 @@ function objectCondition(
         )
       )
       const typeArguments = type.getAliasTypeArguments()
-      if (type.getAliasSymbol()?.getName() === 'Record' && typeArguments.length === 2) {
+      if (
+        type.getAliasSymbol()?.getName() === 'Record' &&
+        typeArguments.length === 2
+      ) {
         conditions.push(
           indexSignaturesCondition(
-              varName,
-              [{ keyType: typeArguments[0], type: typeArguments[1] }],
-              propertySignatures,
-              addDependency,
-              project,
-              path,
-              arrayDepth,
-              records,
-              outFile,
-              options
+            varName,
+            [{ keyType: typeArguments[0], type: typeArguments[1] }],
+            propertySignatures,
+            addDependency,
+            project,
+            path,
+            arrayDepth,
+            records,
+            outFile,
+            options
           )
         )
       }
@@ -765,7 +768,7 @@ function indexSignaturesCondition(
   const staticKeysFilter = properties.length
     ? `
     .filter(([key]) => ![${properties
-      .map(({ name }) => `'${name}'`)
+      .map(({ name }) => `"${name}"`)
       .join(',')}].includes(key))`
     : ''
   return `Object.entries(${varName})${staticKeysFilter}

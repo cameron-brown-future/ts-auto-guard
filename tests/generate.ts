@@ -990,7 +990,7 @@ testProcessProject(
               (obj.someKey === "some" ||
                   obj.someKey === "key") &&
               Object.entries(obj)
-                  .filter(([key]) => !['someKey'].includes(key))
+                  .filter(([key]) => !["someKey"].includes(key))
                   .every(([key, value]) => ((value === "string" ||
                       value === "dynamic") &&
                       typeof key === "string" ||
